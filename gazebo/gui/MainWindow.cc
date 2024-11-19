@@ -1678,15 +1678,18 @@ void MainWindow::ShowMenuBar(QMenuBar *_bar)
   this->dataPtr->menuLayout->addWidget(this->dataPtr->menuBar);
 
   if (!this->dataPtr->eolNotice) {
-    // Add Gazebo classic EOL notice label
-    this->dataPtr->eolNotice = new QLabel(this->dataPtr->menuBar);
-    this->dataPtr->eolNotice->setText(R"(<font color='#ff9966'>
-        This version of Gazebo reaches end-of-life in January 2025.
-        Consider <a style='color: #ffcc00' 
-        href='https://gazebosim.org/docs/latest/gazebo_classic_migration/
-        '>migrating to the new Gazebo</a></font>)");
-    this->dataPtr->menuLayout->addStretch(1);
-    this->dataPtr->menuLayout->addWidget(this->dataPtr->eolNotice);
+    char *ignoreEol = getenv("GAZEBO_SUPPRESS_EOL_WARNING");
+    if (ignoreEol == nullptr || strncmp(ignoreEol, "1", 1) != 0) {
+      // Add Gazebo classic EOL notice label
+      this->dataPtr->eolNotice = new QLabel(this->dataPtr->menuBar);
+      this->dataPtr->eolNotice->setText(R"(<font color='#ff9966'>
+          This version of Gazebo reaches end-of-life in January 2025.
+          Consider <a style='color: #ffcc00' 
+          href='https://gazebosim.org/docs/latest/gazebo_classic_migration/
+          '>migrating to the new Gazebo</a></font>)");
+      this->dataPtr->menuLayout->addStretch(1);
+      this->dataPtr->menuLayout->addWidget(this->dataPtr->eolNotice);
+    }
   }
 
 
