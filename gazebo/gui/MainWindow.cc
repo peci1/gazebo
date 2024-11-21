@@ -1678,7 +1678,7 @@ void MainWindow::ShowMenuBar(QMenuBar *_bar)
   this->dataPtr->menuLayout->addWidget(this->dataPtr->menuBar);
 
   if (!this->dataPtr->eolNotice) {
-    char *ignoreEol = getenv("GAZEBO_SUPPRESS_EOL_WARNING");
+    const char *ignoreEol = common::getEnv("GAZEBO_SUPPRESS_EOL_WARNING");
     if (ignoreEol == nullptr || strncmp(ignoreEol, "1", 1) != 0) {
       // Add Gazebo classic EOL notice label
       this->dataPtr->eolNotice = new QLabel(this->dataPtr->menuBar);

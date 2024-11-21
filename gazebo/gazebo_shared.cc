@@ -30,7 +30,8 @@ void gazebo_shared::printVersion()
 {
   fprintf(stderr, "%s", GAZEBO_VERSION_HEADER);
 
-  char *ignoreEol = getenv("GAZEBO_SUPPRESS_EOL_WARNING");
+  const char *ignoreEol =
+    gazebo::common::getEnv("GAZEBO_SUPPRESS_EOL_WARNING");
   if (ignoreEol != nullptr && strncmp(ignoreEol, "1", 1) == 0)
     return;
 
